@@ -4,7 +4,7 @@
 
 ## discription
 
-A bell that rings when a new client is created, powered by Microsoft Forms and the Raspberry pi 4.
+A bell that rings when a new client is created, powered by Microsoft Forms and the Raspberry pi 4. Checks for mails every 3-5 minutes.
 
 ## install
 
