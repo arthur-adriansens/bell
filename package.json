@@ -1,0 +1,37 @@
+{
+  "name": "bell",
+  "version": "1.0.0",
+  "description": "a bell that rings when a new client is created, powered by the awesome Raspbery Pi 4",
+  "main": "server/index.js",
+  "scripts": {
+    "test": "pm2 monit",
+    "start": "pm2 start server/index.js",
+    "stop": "pm2 stop server/index.js",
+    "start-old": "forever start --no-warnings --minUptime 1000 --spinSleepTime 5000 server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arthur-adriansens/bell.git"
+  },
+  "keywords": [
+    "bell",
+    "Microsoft",
+    "Forms",
+    "Raspberry",
+    "Pi",
+    "Node"
+  ],
+  "author": "Arthur Adriansens",
+  "license": "SEE LICENSE IN LICENSE",
+  "bugs": {
+    "url": "https://github.com/arthur-adriansens/bell/issues"
+  },
+  "homepage": "https://github.com/arthur-adriansens/bell#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "inbox": "^1.1.59",
+    "node-cron": "^3.0.3",
+    "play-sound": "^1.1.6",
+    "pm2": "^5.3.0"
+  }
+}
