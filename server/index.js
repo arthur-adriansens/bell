@@ -60,6 +60,7 @@ function handleMessage(message) {
 function playSound() {
     const sounds = fs.readdirSync("../sounds");
     console.log(sounds);
+
     player.play("path/to/audio/file.mp3", function (err) {
         if (err) throw err;
     });
