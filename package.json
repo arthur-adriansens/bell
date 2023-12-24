@@ -7,7 +7,7 @@
     "test": "pm2 monit",
     "start": "pm2 start server/index.js",
     "stop": "pm2 stop server/index.js",
-    "start-old": "forever start --no-warnings --minUptime 1000 --spinSleepTime 5000 server/index.js"
+    "restart": "pm2 stop server/index.js && pm2 start server/index.js"
   },
   "repository": {
     "type": "git",

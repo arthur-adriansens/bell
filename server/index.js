@@ -4,10 +4,9 @@ const fs = require("fs");
 const player = require("play-sound");
 const inbox = require("inbox");
 const cron = require("node-cron");
-require("dotenv").config({ path: "../.env" });
+require("dotenv").config({ path: ".env" });
 
-// cron.schedule("*/5 * * * *", () => {
-cron.schedule("*/1 * * * *", () => {
+cron.schedule("*/3-5 * * * *", () => {
     const client = inbox.createConnection(false, "outlook.office365.com", {
         secureConnection: true,
         auth: {

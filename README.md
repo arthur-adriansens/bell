@@ -15,10 +15,12 @@ make sure u use node v20 and that git is installed:
 
 `git clone https://github.com/arthur-adriansens/bell && cd bell`
 
-`npm install`
+`npm install && npm install pm2 -g`
+`npm run start`
 
 don't forget to edit the .env file
 
+on startup:
 `pm2 startup && pm2 save`
 
 ## testing
