@@ -2,70 +2,75 @@
 
 const fs = require("fs");
 const player = require("play-sound")((opts = {}));
+const loudness = require("loudness");
 const inbox = require("inbox");
+const MailParser = require("mailparser").MailParser;
 const cron = require("node-cron");
 require("dotenv").config({ path: ".env" });
-const { addSound } = require("./addSound.js");
-let client;
+const { addSound, deleteSounds } = require("./addSound.js");
 
-cron.schedule("*/3-5 * * * *", () => {
-    client = inbox.createConnection(false, "outlook.office365.com", {
-        secureConnection: true,
-        auth: {
-            user: process.env.email,
-            pass: process.env.password,
-        },
-    });
+const client = inbox.createConnection(false, "outlook.office365.com", {
+    secureConnection: true,
+    auth: {
+        user: process.env.email,
+        pass: process.env.password,
+    },
+});
 
-    client.connect();
+client.connect();
 
-    client.on("connect", () => {
-        console.log("Successfully connected to server:");
+client.on("connect", () => {
+    console.log("Successfully connected to server:");
 
-        client.openMailbox("INBOX", (error, info) => {
-            if (error) throw error;
-            console.log("   message count in INBOX: " + info.count);
+    client.openMailbox("INBOX", (error, info) => {
+        if (error) throw error;
+        console.log("   message count in INBOX: " + info.count);
 
-            client.listMessages(0, (err, messages) => {
-                messages.forEach((message) => {
-                    console.log(message.UID + ": " + message.title);
-                    handleMessage(message);
-                });
-
-                client.close();
+        client.listMessages(0, (err, messages) => {
+            messages.forEach((message) => {
+                console.log(message.UID + ": " + message.title);
+                handleMessage(message);
+                // deleteMail(message.UID, message.title);
             });
-        });
-    });
 
-    client.on("close", () => {
-        console.log("Successfully disconnected!");
+            client.close();
+        });
     });
 });
 
-function deleteMail(uid) {
+client.on("close", () => {
+    console.log("Successfully disconnected!");
+});
+
+function deleteMail(uid, title = "message") {
     client.deleteMessage(uid, (err) => {
         if (err) throw err;
-        console.log(`deleted "${message.title}"`);
+        console.log(`deleted "${title}"`);
     });
 }
 
 function handleMessage(message) {
     if (message.title == "bell123") {
-        console.log("ringgg");
+        console.log("ringgg...");
         playSound();
-
-        deleteMail(message.UID);
-        return;
     }
 
     if (message.title == "addSound123") {
         console.log("adding sound...");
-        addSound(message.UID, client);
-        return;
+        addSound(message.UID);
+    }
+
+    if (message.title == "deleteAllSound123") {
+        console.log("deleting sound...");
+        deleteSounds(message.UID);
+    }
+
+    if (message.title == "volumeChange123") {
+        console.log("changing volume...");
+        changeVolume(message);
     }
 
     console.log(message.UID);
-    deleteMail(message.UID);
 }
 
 function playSound() {
@@ -77,4 +82,10 @@ function playSound() {
     player.play(`sounds/${randomSound}`, function (err) {
         if (err) throw err;
     });
+}
+
+async function changeVolume(message) {
+    let volume = await addSound(message.UID);
+    console.log(volume);
+    loudness.setVolume(volume);
 }

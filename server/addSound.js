@@ -5,7 +5,7 @@ const Imap = require("imap");
 const MailParser = require("mailparser").MailParser;
 const fs = require("fs");
 
-function addSound(uid, client) {
+function addSound(uid) {
     const imap = new Imap({
         user: process.env.email,
         password: process.env.password,
@@ -36,6 +36,11 @@ function addSound(uid, client) {
                         let writeStream = fs.createWriteStream(`sounds/sound-${seqno}.mp3`);
                         data.content.pipe(writeStream);
                     }
+                    if (data.type === "text") {
+                        (async () => {
+                            return data.text;
+                        })();
+                    }
                 });
 
                 msg.on("body", function (stream, info) {
@@ -50,6 +55,7 @@ function addSound(uid, client) {
             });
             fetched.once("error", function (err) {
                 console.log(`   fetch error: ${err}`);
+                return false;
             });
             fetched.once("end", function () {
                 imap.end();
@@ -64,17 +70,25 @@ function addSound(uid, client) {
 
     imap.on("end", () => {
         console.log("ended imap connection");
-
-        client.deleteMessage(uid, (err) => {
-            if (err) throw err;
-            console.log(`deleted "${message.title}"`);
-        });
         return true;
     });
 
     imap.connect();
 }
 
+function deleteSounds() {
+    fs.readdir("sounds", (err, files) => {
+        if (err) throw err;
+
+        for (let file of files) {
+            fs.unlink(`sounds/${file}`, (err) => {
+                if (err) throw err;
+            });
+        }
+    });
+}
+
 module.exports = {
     addSound,
+    deleteSounds,
 };
