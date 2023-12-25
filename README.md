@@ -28,6 +28,10 @@ on startup:
 
 `npm run test` (= `pm2 monit`)
 
+## update (!= install)
+
+`git fetch origin && npm install`
+
 ## explanation (Dutch)
 
 Het onderwerp moet bell123 zijn om af te spelen (het is een filter voor de mail parser), body mag niet leeg zijn, maakt niet uit wat er in body staat.

@@ -4,42 +4,43 @@ const fs = require("fs");
 const player = require("play-sound")((opts = {}));
 const loudness = require("loudness");
 const inbox = require("inbox");
-const MailParser = require("mailparser").MailParser;
 const cron = require("node-cron");
 require("dotenv").config({ path: ".env" });
 const { addSound, deleteSounds } = require("./addSound.js");
 
-const client = inbox.createConnection(false, "outlook.office365.com", {
-    secureConnection: true,
-    auth: {
-        user: process.env.email,
-        pass: process.env.password,
-    },
-});
+cron.schedule("*/5 * * * *", () => {
+    const client = inbox.createConnection(false, "outlook.office365.com", {
+        secureConnection: true,
+        auth: {
+            user: process.env.email,
+            pass: process.env.password,
+        },
+    });
 
-client.connect();
+    client.on("connect", () => {
+        console.log("Successfully connected to server:");
 
-client.on("connect", () => {
-    console.log("Successfully connected to server:");
+        client.openMailbox("INBOX", (error, info) => {
+            if (error) throw error;
+            console.log("   message count in INBOX: " + info.count);
 
-    client.openMailbox("INBOX", (error, info) => {
-        if (error) throw error;
-        console.log("   message count in INBOX: " + info.count);
+            client.listMessages(0, (err, messages) => {
+                messages.forEach((message) => {
+                    console.log(message.UID + ": " + message.title);
+                    handleMessage(message);
+                    deleteMail(message.UID, message.title);
+                });
 
-        client.listMessages(0, (err, messages) => {
-            messages.forEach((message) => {
-                console.log(message.UID + ": " + message.title);
-                handleMessage(message);
-                deleteMail(message.UID, message.title);
+                client.close();
             });
-
-            client.close();
         });
     });
-});
 
-client.on("close", () => {
-    console.log("Successfully disconnected!");
+    client.on("close", () => {
+        console.log("Successfully disconnected!");
+    });
+
+    client.connect();
 });
 
 function deleteMail(uid, title = "message") {
