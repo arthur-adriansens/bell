@@ -5,6 +5,7 @@ const player = require("play-sound")((opts = {}));
 const inbox = require("inbox");
 const cron = require("node-cron");
 require("dotenv").config({ path: ".env" });
+const { addSound } = require("./addSound.js");
 
 //cron.schedule("*/3-5 * * * *", () => {
 const client = inbox.createConnection(false, "outlook.office365.com", {
@@ -23,7 +24,6 @@ client.on("connect", () => {
     client.openMailbox("INBOX", (error, info) => {
         if (error) throw error;
         console.log("   message count in INBOX: " + info.count);
-        console.log(info);
 
         client.listMessages(0, (err, messages) => {
             messages.forEach((message) => {
@@ -41,21 +41,30 @@ client.on("close", () => {
 });
 //});
 
+function deleteMail(uid) {
+    client.deleteMessage(uid, (err) => {
+        if (err) throw err;
+        console.log(`deleted "${message.title}"`);
+    });
+}
+
 function handleMessage(message) {
     if (message.title == "bell123") {
         console.log("ringgg");
         playSound();
 
-        client.deleteMessage(message.UID, (err) => {
-            if (err) throw err;
-            console.log(`deleted "${message.title}"`);
-        });
-    } else {
-        client.deleteMessage(message.UID, (err) => {
-            if (err) throw err;
-            console.log(`deleted ${message.title}`);
-        });
+        deleteMail(message.UID);
+        return;
     }
+
+    if (message.title == "addSound123") {
+        console.log("adding sound...");
+        addSound(message.UID, client);
+        return;
+    }
+
+    console.log(message.UID);
+    deleteMail(message.UID);
 }
 
 function playSound() {
