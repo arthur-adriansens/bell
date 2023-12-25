@@ -24,6 +24,8 @@ don't forget to edit the .env file
 on startup:
 `pm2 startup && pm2 save`
 
+to download a song from YouTube, run the server/youtube.js file (change the url in the file first)
+
 ## testing
 
 `npm run test` (= `pm2 monit`)

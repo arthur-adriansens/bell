@@ -29,7 +29,6 @@
   "homepage": "https://github.com/arthur-adriansens/bell#readme",
   "dependencies": {
     "dotenv": "^16.3.1",
-    "download-email-attachments": "^2.0.1",
     "imap": "^0.8.19",
     "inbox": "^1.1.59",
     "loudness": "^0.4.2",
