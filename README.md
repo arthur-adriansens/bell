@@ -9,6 +9,7 @@ A bell that rings when a new client is created, powered by Microsoft Forms and t
 ## install
 
 make sure u use node v20 and that git is installed:
+
 `sudo apt-get update && sudo apt install git-all`
 `curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash && exit`
 `nvm install 20.10.0 && nvm use 20.10.0`
@@ -26,3 +27,13 @@ on startup:
 ## testing
 
 `npm run test` (= `pm2 monit`)
+
+## explanation (Dutch)
+
+Het onderwerp moet bell123 zijn om af te spelen (het is een filter voor de mail parser), body mag niet leeg zijn, maakt niet uit wat er in body staat.
+
+Voor nieuwe liedjes kunt u een mail sturen naar arthur.test2@outlook.com met als onderwerp addSound123 en een mp3 als attachment (de body mag niet leeg zijn).
+
+Om alle liedjes te wissen kunt u een mail sturen naar arthur.test2@outlook.com met als onderwerp deleteAllSound123 (de body mag niet leeg zijn).
+
+Om het volume te wissen kunt u een mail sturen naar arthur.test2@outlook.com met als onderwerp volumeChange123 en dan nog steeds in het onderwerp van de mail het volume (tussen 0 en 100, zonder percentage) na "volumeChange123 (de body mag niet leeg zijn).
