@@ -7,39 +7,39 @@ const cron = require("node-cron");
 require("dotenv").config({ path: ".env" });
 const { addSound } = require("./addSound.js");
 
-//cron.schedule("*/3-5 * * * *", () => {
-const client = inbox.createConnection(false, "outlook.office365.com", {
-    secureConnection: true,
-    auth: {
-        user: process.env.email,
-        pass: process.env.password,
-    },
-});
+cron.schedule("*/3-5 * * * *", () => {
+    const client = inbox.createConnection(false, "outlook.office365.com", {
+        secureConnection: true,
+        auth: {
+            user: process.env.email,
+            pass: process.env.password,
+        },
+    });
 
-client.connect();
+    client.connect();
 
-client.on("connect", () => {
-    console.log("Successfully connected to server:");
+    client.on("connect", () => {
+        console.log("Successfully connected to server:");
 
-    client.openMailbox("INBOX", (error, info) => {
-        if (error) throw error;
-        console.log("   message count in INBOX: " + info.count);
+        client.openMailbox("INBOX", (error, info) => {
+            if (error) throw error;
+            console.log("   message count in INBOX: " + info.count);
 
-        client.listMessages(0, (err, messages) => {
-            messages.forEach((message) => {
-                console.log(message.UID + ": " + message.title);
-                handleMessage(message);
+            client.listMessages(0, (err, messages) => {
+                messages.forEach((message) => {
+                    console.log(message.UID + ": " + message.title);
+                    handleMessage(message);
+                });
+
+                client.close();
             });
-
-            client.close();
         });
     });
-});
 
-client.on("close", () => {
-    console.log("Successfully disconnected!");
+    client.on("close", () => {
+        console.log("Successfully disconnected!");
+    });
 });
-//});
 
 function deleteMail(uid) {
     client.deleteMessage(uid, (err) => {
