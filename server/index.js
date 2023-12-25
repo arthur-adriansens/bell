@@ -30,7 +30,7 @@ client.on("connect", () => {
             messages.forEach((message) => {
                 console.log(message.UID + ": " + message.title);
                 handleMessage(message);
-                // deleteMail(message.UID, message.title);
+                deleteMail(message.UID, message.title);
             });
 
             client.close();
@@ -65,9 +65,9 @@ function handleMessage(message) {
         deleteSounds(message.UID);
     }
 
-    if (message.title == "volumeChange123") {
+    if (message.title.includes("volumeChange123")) {
         console.log("changing volume...");
-        changeVolume(message);
+        changeVolume(message.title);
     }
 
     console.log(message.UID);
@@ -84,8 +84,10 @@ function playSound() {
     });
 }
 
-async function changeVolume(message) {
-    let volume = await addSound(message.UID);
-    console.log(volume);
-    loudness.setVolume(volume);
+function changeVolume(title) {
+    let volume = title.split("volumeChange123")[1];
+
+    if (!isNaN(volume)) {
+        loudness.setVolume(Number(volume));
+    }
 }

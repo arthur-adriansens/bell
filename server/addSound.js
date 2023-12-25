@@ -36,11 +36,6 @@ function addSound(uid) {
                         let writeStream = fs.createWriteStream(`sounds/sound-${seqno}.mp3`);
                         data.content.pipe(writeStream);
                     }
-                    if (data.type === "text") {
-                        (async () => {
-                            return data.text;
-                        })();
-                    }
                 });
 
                 msg.on("body", function (stream, info) {
