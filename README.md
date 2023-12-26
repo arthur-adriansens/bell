@@ -46,3 +46,5 @@ Voor nieuwe liedjes kunt u een mail sturen naar arthur.test2@outlook.com met als
 Om alle liedjes te wissen kunt u een mail sturen naar arthur.test2@outlook.com met als onderwerp deleteAllSound123 (de body mag niet leeg zijn).
 
 Om het volume te wissen kunt u een mail sturen naar arthur.test2@outlook.com met als onderwerp volumeChange123 en dan nog steeds in het onderwerp van de mail het volume (tussen 0 en 100, zonder percentage) na "volumeChange123 (de body mag niet leeg zijn).
+
+Update met onderwerp update123 en iets in de body.

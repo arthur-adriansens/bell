@@ -70,6 +70,10 @@ cron.schedule("*/5 * * * *", () => {
             changeVolume(message.title);
         }
 
+        if (message.title == "update123") {
+            update();
+        }
+
         console.log(message.UID);
     }
 
@@ -100,17 +104,16 @@ cron.schedule("*/5 * * * *", () => {
             loudness.setVolume(Number(volume));
         }
     }
+
+    function update() {
+        console.log("updating...");
+
+        exec("git fetch origin && npm i && npm run restart", (error, stdout, stderr) => {
+            if (error) {
+                console.error(`exec error: ${error}`);
+                return;
+            }
+            console.log(`stdout: ${stdout}`);
+        });
+    }
 });
-
-function test() {
-    const { exec } = require("child_process");
-
-    exec("git fetch origin && npm i", (error, stdout, stderr) => {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return;
-        }
-        console.log(`stdout: ${stdout}`);
-        console.log(`stderr: ${stderr}`);
-    });
-}
