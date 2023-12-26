@@ -35,7 +35,8 @@ to download a song from YouTube, run the server/youtube.js file (change the url 
 
 ## update (!= install)
 
-`git stash && git stash drop && git pull --rebase origin main && npm install`
+`if local changes: git stash && git stash drop`
+`git pull --rebase origin main && npm install`
 
 ## explanation (Dutch)
 
