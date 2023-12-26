@@ -33,8 +33,11 @@
     "inbox": "^1.1.59",
     "loudness": "^0.4.2",
     "mailparser": "^3.6.5",
+    "mp3-duration": "^1.1.0",
     "node-cron": "^3.0.3",
+    "play": "^0.5.0",
     "play-sound": "^1.1.6",
-    "pm2": "^5.3.0"
+    "pm2": "^5.3.0",
+    "vlc-player": "^2.0.0"
   }
 }
