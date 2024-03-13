@@ -8,7 +8,7 @@ const { exec } = require("child_process");
 require("dotenv").config({ path: ".env" });
 const { addSound, deleteSounds } = require("./addSound.js");
 
-cron.schedule("*/5 * * * *", () => {
+cron.schedule("*/1 * * * *", () => {
     const client = inbox.createConnection(false, "outlook.office365.com", {
         secureConnection: true,
         auth: {
@@ -50,37 +50,43 @@ cron.schedule("*/5 * * * *", () => {
     }
 
     function handleMessage(message) {
-        if (message.title == "bell123") {
-            console.log("ringgg...");
+        if (message.title == "bell random") {
+            console.log("ringgg random...");
             playSound();
+        } else if (message.title.includes("bell")) {
+            const type = message.title.split("bell ")[1];
+            console.log(`ringgg ${type}...`);
+
+            playSound(`${type}.mp3`);
         }
 
-        if (message.title == "addSound123") {
-            console.log("adding sound...");
-            addSound(message.UID);
+        if (message.title.contains("add")) {
+            const type = message.title.split("add ")[1];
+            console.log(`adding sound with type ${type}...`);
+            addSound(message.UID, `${type}.mp3`);
         }
 
-        if (message.title == "deleteAllSound123") {
-            console.log("deleting sound...");
-            deleteSounds(message.UID);
-        }
+        // if (message.title == "deleteAllSound123") {
+        //     console.log("deleting sound...");
+        //     deleteSounds(message.UID);
+        // }
 
-        if (message.title.includes("volumeChange123")) {
+        if (message.title.includes("change volume")) {
             console.log("changing volume...");
             changeVolume(message.title);
         }
 
-        if (message.title == "update123") {
+        if (message.title == "update") {
             update();
         }
 
         console.log(message.UID);
     }
 
-    function playSound() {
+    function playSound(soundType) {
         const sounds = fs.readdirSync("sounds");
         if (!sounds.length || sounds.length == 0) return;
-        let randomSound = sounds[Math.floor(Math.random() * sounds.length)];
+        let randomSound = soundType ?? sounds[Math.floor(Math.random() * sounds.length)];
         //let formattedSound = randomSound.replace(/\s/g, "_");
         //console.log(`sounds/${formattedSound}`);
 
@@ -98,7 +104,7 @@ cron.schedule("*/5 * * * *", () => {
     }
 
     function changeVolume(title) {
-        let volume = title.split("volumeChange123")[1];
+        let volume = title.split("change volume")[1];
 
         if (!isNaN(volume)) {
             loudness.setVolume(Number(volume));

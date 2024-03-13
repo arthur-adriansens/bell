@@ -5,7 +5,7 @@ const Imap = require("imap");
 const MailParser = require("mailparser").MailParser;
 const fs = require("fs");
 
-function addSound(uid) {
+function addSound(uid, file_name) {
     const imap = new Imap({
         user: process.env.email,
         password: process.env.password,
@@ -17,42 +17,41 @@ function addSound(uid) {
     // let uid = 88;
     let mailbox = "INBOX";
 
-    imap.once("ready", function() {
-        imap.openBox(mailbox, false, function(err, box) {
+    imap.once("ready", function () {
+        imap.openBox(mailbox, false, function (err, box) {
             if (err) throw err;
             console.log("opened mailbox");
 
             let fetched = imap.fetch(uid, { bodies: "" });
             if (err) throw err;
 
-            fetched.on("message", function(msg, seqno) {
+            fetched.on("message", function (msg, seqno) {
                 let mailparser = new MailParser();
-                console.log(`   Message #${seqno}`);
-                var prefix = "(#" + seqno + ")";
+                // var prefix = "(#" + seqno + ")";
 
-                mailparser.on("data", function(data) {
+                mailparser.on("data", function (data) {
                     if (data.type === "attachment") {
                         console.log(`       ${prefix} Attributes`);
-                        let writeStream = fs.createWriteStream(`sounds/sound-${seqno}.mp3`);
+                        let writeStream = fs.createWriteStream(`sounds/${file_name}`);
                         data.content.pipe(writeStream);
                     }
                 });
 
-                msg.on("body", function(stream, info) {
+                msg.on("body", function (stream, info) {
                     console.log(`       ${prefix} Body`);
                     stream.pipe(mailparser);
                     // stream.pipe(fs.createWriteStream(`sounds/msg-${seqno}-body.txt`));
                 });
 
-                msg.on("end", function() {
+                msg.on("end", function () {
                     console.log(`       ${prefix} finished`);
                 });
             });
-            fetched.once("error", function(err) {
+            fetched.once("error", function (err) {
                 console.log(`   fetch error: ${err}`);
                 return false;
             });
-            fetched.once("end", function() {
+            fetched.once("end", function () {
                 imap.end();
             });
         });

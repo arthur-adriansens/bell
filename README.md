@@ -47,4 +47,4 @@ The body of the mail can **never be empty**! The email will be skipped if the bo
 | bell "type"                      | Plays the "type" sound. The 3 types are: "new_client", "actived_client" and "churned_client" | bell new_client          |
 | change volume "new volume level" | Changes the volume to "new volume level"%. Max value is 100.                                 | change volume 20         |
 | update                           | Updates the Raspberry Pi with new changes in this GitHub repo.                               | /                        |
-| add "type"                 | Adds a new sound. Place the mp3 in the attachment of the mail.                                | add actived_client |
+| add "type"                 | Adds a new sound. Place the **mp3** in the attachment of the mail.                                | add actived_client |
