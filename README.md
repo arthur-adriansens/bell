@@ -4,7 +4,7 @@
 
 ## discription
 
-A bell that rings when a new client is created, powered by Microsoft Forms and the Raspberry pi 4. Checks for mails every 3-5 minutes.
+A bell that rings when a new client is created, powered by Microsoft Forms and a Raspberry pi. Checks for mails every 3-5 minutes.
 
 ## install
 
@@ -35,17 +35,16 @@ to download a song from YouTube, run the server/youtube.js file (change the url 
 
 ## update (!= install)
 
-`if local changes: git stash && git stash drop`
-`git pull --rebase origin main && npm install`
+if local changes: `git stash && git stash drop`
+update: `git pull --rebase origin main && npm install`
 
-## explanation (Dutch)
+## explanation
+The body of the mail can **never be empty**! The email will be skipped if the body is empty (I don't know why). The email address is "arthur.test2@outlook.com".
 
-Het onderwerp moet bell123 zijn om af te spelen (het is een filter voor de mail parser), body mag niet leeg zijn, maakt niet uit wat er in body staat.
-
-Voor nieuwe liedjes kunt u een mail sturen naar arthur.test2@outlook.com met als onderwerp addSound123 en een mp3 als attachment (de body mag niet leeg zijn).
-
-Om alle liedjes te wissen kunt u een mail sturen naar arthur.test2@outlook.com met als onderwerp deleteAllSound123 (de body mag niet leeg zijn).
-
-Om het volume te wissen kunt u een mail sturen naar arthur.test2@outlook.com met als onderwerp volumeChange123 en dan nog steeds in het onderwerp van de mail het volume (tussen 0 en 100, zonder percentage) na "volumeChange123 (de body mag niet leeg zijn).
-
-Update met onderwerp update123 en iets in de body.
+| email subject                    | explantation                                                                                 | example                  |
+|----------------------------------|----------------------------------------------------------------------------------------------|--------------------------|
+| bell random                      | Plays one of the sounds randomly.                                                            | /                        |
+| bell "type"                      | Plays the "type" sound. The 3 types are: "new_client", "actived_client" and "churned_client" | bell new_client          |
+| change volume "new volume level" | Changes the volume to "new volume level"%. Max value is 100.                                 | change volume 20         |
+| update                           | Updates the Raspberry Pi with new changes in this GitHub repo.                               | /                        |
+| add "type"                 | Adds a new sound. Place the mp3 in the attachment of the mail.                                | add actived_client |
