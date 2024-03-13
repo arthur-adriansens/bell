@@ -114,7 +114,7 @@ cron.schedule("*/1 * * * *", () => {
     function update() {
         console.log("updating...");
 
-        exec("git pull --rebase origin main && npm install && npm run restart", (error, stdout, stderr) => {
+        exec("git pull --rebase origin main && npm install && sudo reboot", (error, stdout, stderr) => {
             if (error) {
                 console.error(`exec error: ${error}`);
                 return;
