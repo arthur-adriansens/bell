@@ -1,5 +1,4 @@
 /** @format */
-
 const fs = require("fs");
 const loudness = require("loudness");
 const inbox = require("inbox");
@@ -13,8 +12,9 @@ cron.schedule("*/1 * * * *", () => {
         secureConnection: true,
         auth: {
             user: process.env.email,
-            pass: process.env.password,
+            pass: process.env.app_password,
         },
+        port: 993,
     });
 
     client.on("connect", () => {
@@ -24,10 +24,10 @@ cron.schedule("*/1 * * * *", () => {
             if (error) throw error;
             console.log("   message count in INBOX: " + info.count);
 
-            client.listMessages(0, (err, messages) => {
-                messages.forEach((message) => {
+            client.listMessages(0, async (err, messages) => {
+                await messages.forEach(async (message) => {
                     console.log(message.UID + ": " + message.title);
-                    handleMessage(message);
+                    await handleMessage(message);
                     deleteMail(message.UID, message.title);
                 });
 
@@ -49,21 +49,22 @@ cron.schedule("*/1 * * * *", () => {
         });
     }
 
-    function handleMessage(message) {
+    async function handleMessage(message) {
         if (message.title == "bell random") {
             console.log("ringgg random...");
-            playSound();
+            await playSound();
         } else if (message.title.includes("bell")) {
             const type = message.title.split("bell ")[1];
             console.log(`ringgg ${type}...`);
-
-            playSound(`${type}.mp3`);
+            if (!type) {
+                await playSound(`${type}.mp3`);
+            }
         }
 
-        if (message.title.contains("add")) {
+        if (message.title.includes("add")) {
             const type = message.title.split("add ")[1];
             console.log(`adding sound with type ${type}...`);
-            addSound(message.UID, `${type}.mp3`);
+            await addSound(message.UID, `${type}.mp3`);
         }
 
         // if (message.title == "deleteAllSound123") {
@@ -79,11 +80,9 @@ cron.schedule("*/1 * * * *", () => {
         if (message.title == "update") {
             update();
         }
-
-        console.log(message.UID);
     }
 
-    function playSound(soundType) {
+    async function playSound(soundType) {
         const sounds = fs.readdirSync("sounds");
         if (!sounds.length || sounds.length == 0) return;
         let randomSound = soundType ?? sounds[Math.floor(Math.random() * sounds.length)];
