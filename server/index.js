@@ -114,7 +114,7 @@ cron.schedule("*/1 * * * *", () => {
         console.log("updating...");
 
         exec(
-            "git stash push -- .env && git stash push -- sounds/ && git pull --rebase origin main && git stash apply && npm install && sudo reboot",
+            "git stash push -- .env && git stash push -- sounds/ && git pull --rebase origin main && git stash pop stash@{0} && git stash pop stash@{1} && npm install && sudo reboot",
             (error, stdout, stderr) => {
                 if (error) {
                     console.error(`exec error: ${error}`);
