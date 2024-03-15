@@ -51,6 +51,7 @@ async function addSound(uid, file_name) {
                 return false;
             });
             fetched.once("end", function () {
+                imap.addFlags(uid, "Deleted");
                 imap.end();
             });
         });
