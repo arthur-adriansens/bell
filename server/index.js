@@ -113,7 +113,7 @@ cron.schedule("*/1 * * * *", () => {
     function update() {
         console.log("updating...");
 
-        exec("git stash && git pull --rebase origin main && git stash pop && npm install && sudo reboot", (error, stdout, stderr) => {
+        exec("git pull && npm install && sudo reboot", (error, stdout, stderr) => {
             if (error) {
                 console.error(`exec error: ${error}`);
                 return;
