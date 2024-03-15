@@ -66,7 +66,7 @@ cron.schedule("*/1 * * * *", () => {
         if (message.title.includes("add")) {
             const type = message.title.split("add ")[1];
             console.log(`adding sound with type ${type}...`);
-            addSound(message.UID, `${type}.mp3`);
+            addSound(message.UID, `${type}.mp3`, client);
         }
 
         // if (message.title == "deleteAllSound123") {
@@ -84,20 +84,20 @@ cron.schedule("*/1 * * * *", () => {
         }
     }
 
-    async function playSound(soundType) {
+    async function playSound(soundPath) {
         const sounds = fs.readdirSync("sounds");
         if (!sounds.length || sounds.length == 0) return;
-        let randomSound = soundType ?? sounds[Math.floor(Math.random() * sounds.length)];
-        //let formattedSound = randomSound.replace(/\s/g, "_");
-        //console.log(`sounds/${formattedSound}`);
+        let sound = soundPath ?? sounds[Math.floor(Math.random() * sounds.length)];
+        //let formattedSound = sound.replace(/\s/g, "_");
+        console.log(`sounds/${sound}`);
 
-        exec(`vlc sounds/${randomSound} vlc://quit`, (error, stdout, stderr) => {
+        exec(`vlc sounds/${sound} vlc://quit`, (error, stdout, stderr) => {
             if (error) {
                 console.log(`error: ${error.message}`);
                 return;
             }
             if (stderr) {
-                console.log(`played sounds/${randomSound}`);
+                console.log(`played sounds/${sound}`);
                 return;
             }
             console.log(`stdout: ${stdout}`);
