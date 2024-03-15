@@ -28,7 +28,7 @@ cron.schedule("*/1 * * * *", () => {
                 await messages.forEach(async (message) => {
                     console.log(message.UID + ": " + message.title);
                     await handleMessage(message);
-                    deleteMail(message.UID, message.title);
+                    await deleteMail(message.UID, message.title);
                 });
 
                 client.close();
@@ -42,7 +42,7 @@ cron.schedule("*/1 * * * *", () => {
 
     client.connect();
 
-    function deleteMail(uid, title = "message") {
+    async function deleteMail(uid, title = "message") {
         client.deleteMessage(uid, (err) => {
             if (err) throw err;
             console.log(`deleted "${title}"`);
