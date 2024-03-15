@@ -58,7 +58,7 @@ cron.schedule("*/1 * * * *", () => {
         } else if (message.title.includes("bell")) {
             const type = message.title.split("bell ")[1];
             console.log(`ringgg ${type}...`);
-            if (!type) {
+            if (type) {
                 playSound(`${type}.mp3`);
             }
         }
