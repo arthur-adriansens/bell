@@ -27,8 +27,8 @@ cron.schedule("*/1 * * * *", () => {
             client.listMessages(0, async (err, messages) => {
                 await messages.forEach(async (message) => {
                     console.log(message.UID + ": " + message.title);
-                    await handleMessage(message);
-                    await deleteMail(message.UID, message.title);
+                    handleMessage(message);
+                    deleteMail(message.UID, message.title);
                 });
 
                 client.close();
@@ -42,29 +42,29 @@ cron.schedule("*/1 * * * *", () => {
 
     client.connect();
 
-    async function deleteMail(uid, title = "message") {
+    function deleteMail(uid, title = "message") {
         client.deleteMessage(uid, (err) => {
             if (err) throw err;
             console.log(`deleted "${title}"`);
         });
     }
 
-    async function handleMessage(message) {
+    function handleMessage(message) {
         if (message.title == "bell random") {
             console.log("ringgg random...");
-            await playSound();
+            playSound();
         } else if (message.title.includes("bell")) {
             const type = message.title.split("bell ")[1];
             console.log(`ringgg ${type}...`);
             if (!type) {
-                await playSound(`${type}.mp3`);
+                playSound(`${type}.mp3`);
             }
         }
 
         if (message.title.includes("add")) {
             const type = message.title.split("add ")[1];
             console.log(`adding sound with type ${type}...`);
-            await addSound(message.UID, `${type}.mp3`);
+            addSound(message.UID, `${type}.mp3`);
         }
 
         // if (message.title == "deleteAllSound123") {
