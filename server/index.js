@@ -7,7 +7,7 @@ const { exec } = require("child_process");
 require("dotenv").config({ path: ".env" });
 const { addSound, deleteSounds } = require("./addSound.js");
 
-cron.schedule("*/1 * * * *", () => {
+cron.schedule("*/5 * * * *", () => {
     const client = inbox.createConnection(false, "outlook.office365.com", {
         secureConnection: true,
         auth: {
