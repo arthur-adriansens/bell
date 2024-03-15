@@ -84,7 +84,7 @@ cron.schedule("*/1 * * * *", () => {
         }
     }
 
-    async function playSound(soundPath) {
+    function playSound(soundPath) {
         const sounds = fs.readdirSync("sounds");
         if (!sounds.length || sounds.length == 0) return;
         let sound = soundPath ?? sounds[Math.floor(Math.random() * sounds.length)];
