@@ -28,7 +28,9 @@ cron.schedule("*/1 * * * *", () => {
                 await messages.forEach(async (message) => {
                     console.log(message.UID + ": " + message.title);
                     handleMessage(message);
-                    deleteMail(message.UID, message.title);
+                    if (!message.title.includes("add")) {
+                        deleteMail(message.UID, message.title);
+                    }
                 });
 
                 client.close();
