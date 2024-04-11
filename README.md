@@ -12,7 +12,7 @@ make sure u use node v20 and that git is installed:
 
 `sudo apt-get update && sudo apt install git-all`
 
-`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.35.3/install.sh | bash && exit`
+`curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash && exit`
 
 `nvm install 20.10.0 && nvm use 20.10.0`
 
