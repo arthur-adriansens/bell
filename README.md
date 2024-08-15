@@ -39,7 +39,7 @@ if local changes: `git stash && git stash drop`
 update: `git pull --rebase origin main && npm install`
 
 ## explanation
-The body of the mail can **never be empty**! The email will be skipped if the body is empty (I don't know why). The email address is "arthur.test2@outlook.com".
+The body of the mail can **never be empty**! The email will be skipped if the body is empty (I don't know why). The email address is "arthur.test2@outlook.com" **for Belgium** and "arthur.test3@outlook.com" **for the Netherlands**.
 
 | email subject                    | explantation                                                                                 | example                  |
 |----------------------------------|----------------------------------------------------------------------------------------------|--------------------------|
