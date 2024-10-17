@@ -294,6 +294,7 @@
                 fetch("/temp", {
                     method: "GET",
                 }).then((res) => {
+                    console.log(res);
                     document.querySelector("#temperature").innerHTML = res?.toString().replace("temp=", "").replace("'", "°");
                 });
 
