@@ -43,7 +43,7 @@
         <aside class="inset-y fixed left-0 z-20 flex h-full flex-col border-r">
             <div class="border-b p-2">
                 <button
-                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover h-10 w-10"
                     aria-label="Home"
                 >
                     <img src="./butterfly.png" alt="Twikey logo" width="24" height="24" />
@@ -51,7 +51,7 @@
             </div>
             <nav class="grid gap-1 p-2">
                 <button
-                    class="bg-muted inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-lg"
+                    class="bg-muted inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover h-10 w-10 rounded-lg"
                     aria-label="Settings"
                     data-state="closed"
                 >
@@ -76,7 +76,7 @@
             </nav>
             <!-- <nav class="mt-auto grid gap-1 p-2">
                 <button
-                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-10 w-10 mt-auto rounded-lg"
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover h-10 w-10 mt-auto rounded-lg"
                     aria-label="Help"
                     data-state="closed"
                 >
@@ -100,7 +100,7 @@
                         <circle cx="12" cy="12" r="4"></circle>
                     </svg></button
                 ><button
-                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-10 w-10 mt-auto rounded-lg"
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover h-10 w-10 mt-auto rounded-lg"
                     aria-label="Account"
                     data-state="closed"
                 >
@@ -127,7 +127,8 @@
             <header class="sticky top-0 z-10 flex h-[57px] items-center gap-1 border-b bg-background px-4">
                 <h1 class="text-xl font-semibold">Twikey bell dashboard</h1>
                 <button
-                    class="inline-flex items-center justify-center whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 ml-auto gap-1.5 text-sm"
+                    id="update"
+                    class="inline-flex items-center justify-center whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover h-9 rounded-md px-3 ml-auto gap-1.5 text-sm"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -215,11 +216,55 @@
                         <label for="file_input" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
                             >MP3 file</label
                         >
-                        <input
-                            type="file"
-                            id="file_input"
-                            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-                        />
+                        <div class="flex w-full max-w-sm items-center space-x-2">
+                            <input
+                                type="file"
+                                id="file_input"
+                                class="hover transition-colors flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                            />
+                            <button
+                                class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 bg-primary text-primary-foreground hover-2 h-10 px-4 py-2"
+                                type="submit"
+                                id="upload"
+                                style="color: hsl(var(--primary-foreground))"
+                            >
+                                Submit
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="preview flex flex-col min-h-[350px] w-full justify-start p-4 items-start">
+                        <label for="file_input" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >Sounds</label
+                        >
+                        <div class="relative w-full overflow-auto">
+                            <table class="w-full caption-bottom text-sm">
+                                <thead class="[&amp;_tr]:border-b">
+                                    <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                                        <th
+                                            class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0 w-[100px]"
+                                        >
+                                            Name
+                                        </th>
+                                        <th
+                                            class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0"
+                                        >
+                                            Play
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody class="[&amp;_tr:last-child]:border-0">
+                                    <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0 font-medium">new_client.mp3</td>
+                                        <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">
+                                            <audio>
+                                                <source src="./sound/new_client.mp3" />
+                                            </audio>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </main>
@@ -281,6 +326,44 @@
                     });
                 }
             });
+
+            document.querySelector("#update").addEventListener("click", update);
+
+            function update() {
+                fetch("/update", {
+                    method: "GET",
+                })
+                    .then((res) => {
+                        document.querySelector("#update").innerHTML = "Update";
+                        console.log(res);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                        document.querySelector("#update").innerHTML = "Failed to update :(";
+                    })
+                    .finally(() => {
+                        document.querySelector("#update").addEventListener("click", update);
+                    });
+            }
+
+            document.querySelector("#upload").addEventListener("click", uploadFile);
+
+            function uploadFile() {
+                const fileInput = document.querySelector("#file_input");
+                const file = fileInput.files[0];
+                if (!file) return;
+
+                const formData = new FormData();
+                formData.append("file", file);
+                console.log(formData);
+                fetch("/upload", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then((response) => response.json())
+                    .then((data) => console.log("Success:", data))
+                    .catch((error) => console.error("Error:", error));
+            }
         </script>
     </body>
 </html>

@@ -17,3 +17,16 @@
 .bg-muted {
     background-color: hsl(var(--muted))
 }
+
+.bg-accent {
+    background-color: hsl(var(--accent))
+}
+
+.hover:hover {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+}
+
+.hover-2:hover {
+    background-color: hsl(240 5.9% 10%/0.9);
+}
