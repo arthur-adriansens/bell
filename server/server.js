@@ -2,6 +2,7 @@
 
 // Setup express
 require("dotenv").config({ path: ".env" });
+const { exec } = require("child_process");
 const port = process.env.PORT || 3000;
 const path = require("path");
 const express = require("express");
