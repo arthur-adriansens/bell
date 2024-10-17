@@ -32,7 +32,7 @@ app.post("/upload", upload.single("file"), (req, res) => {
     res.status(200).json({ message: "File uploaded successfully!" }).json(req.file);
 });
 
-app.post("/update", (req, res) => {
+app.get("/update", (req, res) => {
     console.log("updating...");
 
     exec("cd /home/pi/bell && git fetch origin && git reset --hard origin/main && npm install && sudo reboot", (error, stdout, stderr) => {
@@ -42,6 +42,8 @@ app.post("/update", (req, res) => {
         }
         console.log(`stdout: ${stdout}`);
     });
+
+    return res.status(200).send("Updating!");
 });
 
 app.listen(port, () => {
