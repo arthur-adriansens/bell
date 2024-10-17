@@ -23,19 +23,18 @@ const upload = multer({ storage: storage });
 
 // Routes
 app.use("/", express.static(path.join(__dirname, "../public")));
-
-app.get("/sound", (req, res) => {
-    console.log("hi");
-});
+app.use("/sound", express.static(path.join(__dirname, "../sounds")));
 
 app.post("/upload", upload.single("file"), (req, res) => {
-    console.log("hi");
     if (!req.body) {
         return res.status(400).send("No image data received.");
     }
 
     console.log(req.file);
-    res.status(200).json({ message: "File uploaded successfully!" }).json(req.file);
+    res.status(200)
+        .json({ message: "File uploaded successfully!" })
+        .json(req.file)
+        .catch((e) => console.log(e));
 });
 
 app.get("/update", (req, res) => {
