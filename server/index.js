@@ -16,7 +16,7 @@ async function getRecent() {
                     {
                         propertyName: "hs_lastmodifieddate",
                         operator: "GTE",
-                        value: last_time_checked,
+                        value: last_time_checked || new Date().toISOString(),
                     },
                 ],
             },
@@ -37,22 +37,20 @@ async function getRecent() {
             body: searchCriteria,
         })
         .then((res) => {
-            last_time_checked = new Date().toISOString();
             return res.json();
         });
 }
 
 async function main() {
-    if (!last_time_checked) {
-        last_time_checked = new Date().toISOString();
-    }
     // most_recent_id = await getRecent(1);
     // console.log(most_recent_id.results[0].id);
 
     const response = await getRecent();
-    console.log(response);
+    if (response.total > 0) {
+        playSound();
+    }
+    last_time_checked = new Date().toISOString();
     console.log(response.total, response.results);
-    console.log(last_time_checked);
 }
 
-main();
+cron.schedule("* * * * *", main);
