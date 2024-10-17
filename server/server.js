@@ -60,10 +60,13 @@ app.get("/temp", async (req, res) => {
         }
         console.log(`stdout: ${stdout}`);
     });
+
+    return res.status(200).send(temp);
 });
 
 app.get("/volume", async (req, res) => {
     changeVolume(req.query.volume);
+    console.log("volume:", req.query.volume);
 });
 
 app.listen(port, () => {
