@@ -293,8 +293,8 @@
             document.addEventListener("DOMContentLoaded", function () {
                 fetch("/temp", {
                     method: "GET",
-                }).then((res) => {
-                    console.log(res.json());
+                }).then(async (res) => {
+                    console.log(await res.json());
                     document.querySelector("#temperature").innerHTML = res?.json().replace("temp=", "").replace("'", "°");
                 });
 
