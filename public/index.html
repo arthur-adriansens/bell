@@ -12,10 +12,8 @@
         <title>Document</title>
     </head>
 
-    <body>
-        Hello World!
-
-        <div>
+    <body class="grid h-screen w-full pl-[56px]">
+        <!-- <div>
             <label for="price" class="block text-sm font-medium leading-6 text-gray-900">Price</label>
             <div class="relative mt-2 rounded-md shadow-sm">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
@@ -41,6 +39,248 @@
                     </select>
                 </div>
             </div>
+        </div> -->
+        <aside class="inset-y fixed left-0 z-20 flex h-full flex-col border-r">
+            <div class="border-b p-2">
+                <button
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 w-10"
+                    aria-label="Home"
+                >
+                    <img src="./butterfly.png" alt="Twikey logo" width="24" height="24" />
+                </button>
+            </div>
+            <nav class="grid gap-1 p-2">
+                <button
+                    class="bg-muted inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-10 w-10 rounded-lg"
+                    aria-label="Settings"
+                    data-state="closed"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-settings2 size-5"
+                    >
+                        <path d="M20 7h-9"></path>
+                        <path d="M14 17H5"></path>
+                        <circle cx="17" cy="17" r="3"></circle>
+                        <circle cx="7" cy="7" r="3"></circle>
+                    </svg>
+                </button>
+            </nav>
+            <!-- <nav class="mt-auto grid gap-1 p-2">
+                <button
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-10 w-10 mt-auto rounded-lg"
+                    aria-label="Help"
+                    data-state="closed"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-life-buoy size-5"
+                    >
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <path d="m4.93 4.93 4.24 4.24"></path>
+                        <path d="m14.83 9.17 4.24-4.24"></path>
+                        <path d="m14.83 14.83 4.24 4.24"></path>
+                        <path d="m9.17 14.83-4.24 4.24"></path>
+                        <circle cx="12" cy="12" r="4"></circle>
+                    </svg></button
+                ><button
+                    class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-10 w-10 mt-auto rounded-lg"
+                    aria-label="Account"
+                    data-state="closed"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-square-user size-5"
+                    >
+                        <rect width="18" height="18" x="3" y="3" rx="2"></rect>
+                        <circle cx="12" cy="10" r="3"></circle>
+                        <path d="M7 21v-2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2"></path>
+                    </svg>
+                </button>
+            </nav> -->
+        </aside>
+        <div class="flex flex-col">
+            <header class="sticky top-0 z-10 flex h-[57px] items-center gap-1 border-b bg-background px-4">
+                <h1 class="text-xl font-semibold">Twikey bell dashboard</h1>
+                <button
+                    class="inline-flex items-center justify-center whitespace-nowrap font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3 ml-auto gap-1.5 text-sm"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-share size-3.5"
+                    >
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                        <polyline points="16 6 12 2 8 6"></polyline>
+                        <line x1="12" x2="12" y1="2" y2="15"></line></svg
+                    >Update
+                </button>
+            </header>
+
+            <main class="grid flex-1 gap-4 overflow-auto p-4 md:grid-cols-2 lg:grid-cols-3">
+                <div class="relative hidden flex-col items-start gap-8 md:flex">
+                    <form class="grid w-full items-start gap-6">
+                        <fieldset class="grid gap-6 rounded-lg border p-4">
+                            <legend class="-ml-1 px-1 text-sm font-medium">statistics</legend>
+                            <div class="grid gap-3">
+                                <label class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" for="model"
+                                    >Volume</label
+                                >
+                                <span
+                                    dir="ltr"
+                                    id="track"
+                                    data-orientation="horizontal"
+                                    aria-disabled="false"
+                                    class="relative flex touch-none select-none items-center w-full"
+                                    style="--radix-slider-thumb-transform: translateX(-50%)"
+                                    ><span data-orientation="horizontal" class="relative h-2 w-full grow overflow-hidden rounded-full bg-secondary"
+                                        ><span
+                                            data-orientation="horizontal"
+                                            id="slider_fill"
+                                            class="absolute h-full bg-primary"
+                                            style="left: 0%; right: 50%; border-top-right-radius: 0"
+                                        ></span></span
+                                    ><span style="transform: var(--radix-slider-thumb-transform); position: absolute; left: calc(50% + 0px)"
+                                        ><span
+                                            role="slider"
+                                            aria-valuemin="0"
+                                            aria-valuemax="100"
+                                            aria-orientation="horizontal"
+                                            data-orientation="horizontal"
+                                            tabindex="0"
+                                            class="block h-5 w-5 rounded-full border-2 border-primary bg-background ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"
+                                            data-radix-collection-item=""
+                                            aria-valuenow="50"
+                                        ></span></span
+                                ></span>
+                            </div>
+                            <div class="grid gap-3">
+                                <label
+                                    class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                                    for="temperature"
+                                    >Temperature</label
+                                >
+                                <p
+                                    class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                                    id="temperature"
+                                >
+                                    0.5
+                                </p>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+
+                <div
+                    class="relative flex h-full min-h-[50vh] flex-col rounded-xl bg-muted/50 p-4 lg:col-span-2"
+                    style="background-color: hsl(240 4.8% 95.9%/0.5)"
+                >
+                    <div
+                        class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground absolute right-3 top-3"
+                    >
+                        Output
+                    </div>
+                    <div class="p-4 grid w-full max-w-sm items-center gap-1.5">
+                        <label for="file_input" class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                            >MP3 file</label
+                        >
+                        <input
+                            type="file"
+                            id="file_input"
+                            class="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                        />
+                    </div>
+                </div>
+            </main>
         </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                fetch("/temp", {
+                    method: "GET",
+                }).then((res) => {
+                    document.querySelector("#temperature").innerHTML = res?.toString().replace("temp=", "").replace("'", "°");
+                });
+
+                const slider = document.querySelector('[role="slider"]');
+                const track = document.querySelector("#track");
+                const fill = document.querySelector("#slider_fill");
+
+                slider.addEventListener("mousedown", startDragging);
+                track.addEventListener("click", (e) => {
+                    drag(e);
+
+                    fetch(`/volume?volume=${slider.ariaValueNow}`, {
+                        method: "GET",
+                    }).then((res) => {
+                        console.log("Request complete! response:", res);
+                    });
+                });
+
+                function startDragging(e) {
+                    e.preventDefault();
+                    document.addEventListener("mousemove", drag);
+                    document.addEventListener("mouseup", stopDragging);
+                }
+
+                function drag(e) {
+                    const rect = track.getBoundingClientRect();
+                    let percentage = ((e.clientX - rect.left) / rect.width) * 100;
+                    percentage = Math.max(0, Math.min(percentage, 100));
+
+                    slider.style.left = slider.parentElement.style.left = `${percentage}%`;
+                    fill.style.right = slider.parentElement.style.right = `${100 - percentage}%`;
+
+                    if (percentage >= 97) {
+                        slider.parentElement.style.left = "auto";
+                        slider.parentElement.style.right = "-1.25rem";
+                    }
+
+                    slider.setAttribute("aria-valuenow", Math.round(percentage));
+                }
+
+                function stopDragging() {
+                    document.removeEventListener("mousemove", drag);
+                    document.removeEventListener("mouseup", stopDragging);
+
+                    fetch(`/volume?volume=${slider.ariaValueNow}`, {
+                        method: "GET",
+                    }).then((res) => {
+                        console.log("Request complete! response:", res);
+                    });
+                }
+            });
+        </script>
     </body>
 </html>

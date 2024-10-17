@@ -2,6 +2,7 @@
 
 // Setup express
 require("dotenv").config({ path: ".env" });
+const { playSound, changeVolume } = require("./soundHelper.js");
 const { exec } = require("child_process");
 const port = process.env.PORT || 3000;
 const path = require("path");
@@ -45,6 +46,20 @@ app.get("/update", (req, res) => {
     });
 
     return res.status(200).send("Updating!");
+});
+
+app.get("/temp", async (req, res) => {
+    const temp = await exec("vcgencmd measure_temp", (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return res.status(400).send(error);
+        }
+        console.log(`stdout: ${stdout}`);
+    });
+});
+
+app.get("/volume", async (req, res) => {
+    changeVolume(req.query.volume);
 });
 
 app.listen(port, () => {
