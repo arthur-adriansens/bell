@@ -295,7 +295,7 @@
                     method: "GET",
                 }).then((res) => {
                     console.log(res);
-                    document.querySelector("#temperature").innerHTML = res?.toString().replace("temp=", "").replace("'", "°");
+                    document.querySelector("#temperature").innerHTML = res?.json().replace("temp=", "").replace("'", "°");
                 });
 
                 const slider = document.querySelector('[role="slider"]');
