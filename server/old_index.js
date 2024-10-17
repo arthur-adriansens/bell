@@ -5,7 +5,7 @@ const inbox = require("inbox");
 const cron = require("node-cron");
 const { exec } = require("child_process");
 require("dotenv").config({ path: ".env" });
-const { addSound, deleteSounds } = require("./addSound.js");
+const { addSound, deleteSounds } = require("./old_addSound.js");
 
 cron.schedule("*/5 * * * *", () => {
     const client = inbox.createConnection(false, "outlook.office365.com", {

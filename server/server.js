@@ -11,16 +11,17 @@ const app = express();
 const multer = require("multer");
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "uploads/");
+        cb(null, "sounds/");
     },
     filename: (req, file, cb) => {
-        cb(null, Date.now() + "-" + file.originalname);
+        cb(null, "new_client.mp3");
     },
 });
 const upload = multer({ storage: storage });
 
 // Routes
 app.use("/", express.static(path.join(__dirname, "../public")));
+app.use("/sound", express.static(path.join(__dirname, "../sound")));
 
 app.post("/upload", upload.single("file"), (req, res) => {
     if (!req.body) {
@@ -29,6 +30,18 @@ app.post("/upload", upload.single("file"), (req, res) => {
 
     console.log(req.file);
     res.status(200).json({ message: "File uploaded successfully!" }).json(req.file);
+});
+
+app.post("/update", (req, res) => {
+    console.log("updating...");
+
+    exec("cd /home/pi/bell && git pull && npm install && sudo reboot", (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return;
+        }
+        console.log(`stdout: ${stdout}`);
+    });
 });
 
 app.listen(port, () => {
