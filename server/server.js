@@ -13,7 +13,7 @@ const app = express();
 const multer = require("multer");
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, "sounds/");
+        cb(null, "public/sounds/");
     },
     filename: (req, file, cb) => {
         cb(null, "new_client.mp3");
@@ -23,7 +23,6 @@ const upload = multer({ storage: storage });
 
 // Routes
 app.use("/", express.static(path.join(__dirname, "../public")));
-app.use("/sound", express.static(path.join(__dirname, "../sounds")));
 
 app.post("/upload", upload.single("file"), (req, res) => {
     if (!req.body) {
@@ -58,9 +57,8 @@ app.get("/temp", async (req, res) => {
             return res.status(400).send(error);
         }
         console.log(`stdout: ${stdout}`);
+        return res.status(200).send(temp);
     });
-
-    return res.status(200).send(temp);
 });
 
 app.get("/volume", async (req, res) => {
