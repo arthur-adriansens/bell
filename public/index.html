@@ -294,7 +294,8 @@
                 fetch("/temp", {
                     method: "GET",
                 }).then(async (res) => {
-                    document.querySelector("#temperature").innerHTML = res?.replace("temp=", "").replace("'", "°");
+                    const result = await res.text();
+                    document.querySelector("#temperature").innerHTML = result.replace("temp=", "").replace("'", "°");
                 });
 
                 const slider = document.querySelector('[role="slider"]');
