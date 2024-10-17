@@ -35,10 +35,10 @@ app.post("/upload", upload.single("file"), (req, res) => {
 app.post("/update", (req, res) => {
     console.log("updating...");
 
-    exec("cd /home/pi/bell && git pull && npm install && sudo reboot", (error, stdout, stderr) => {
+    exec("cd /home/pi/bell && git fetch origin && git reset --hard origin/main && npm install && sudo reboot", (error, stdout, stderr) => {
         if (error) {
             console.error(`exec error: ${error}`);
-            return;
+            return res.status(400).send(error);
         }
         console.log(`stdout: ${stdout}`);
     });

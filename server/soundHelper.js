@@ -26,9 +26,5 @@ function playSound(soundPath = "new_client.mp3") {
         console.log(`stdout: ${stdout}`);
     });
 }
-async function test() {
-    playSound();
-}
-test();
 
 module.exports = { playSound, changeVolume };

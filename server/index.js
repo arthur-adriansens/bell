@@ -1,7 +1,9 @@
 /** @format */
 
+require("./server.js");
 require("dotenv").config({ path: ".env" });
 const { playSound, changeVolume } = require("./soundHelper.js");
+const cron = require("node-cron");
 const hubspot = require("@hubspot/api-client");
 const hubspotClient = new hubspot.Client({ accessToken: process.env.access_token });
 let last_time_checked;
@@ -48,7 +50,8 @@ async function main() {
     // console.log(most_recent_id.results[0].id);
 
     const response = await getRecent();
-    console.log(response.results, response.results.length);
+    console.log(response);
+    console.log(response.total, response.results);
     console.log(last_time_checked);
 }
 
