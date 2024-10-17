@@ -46,11 +46,26 @@ async function main() {
     // console.log(most_recent_id.results[0].id);
 
     const response = await getRecent();
-    if (response.total > 0) {
-        playSound();
+    if (response.total > 0 && response[0]?.id) {
+        const check = await check_deal(response[0]?.id);
+        if (check) {
+            playSound();
+        }
     }
     last_time_checked = new Date().toISOString();
     console.log(response.total, response.results);
+}
+
+async function check_deal(id) {
+    return await hubspotClient
+        .apiRequest({
+            method: "GET",
+            path: `/crm/v3/objects/deals/${id}`,
+        })
+        .then(async (res) => {
+            const result = await res.json();
+            return result.properties.dealstage == "closedwon";
+        });
 }
 
 cron.schedule("* * * * *", main);
