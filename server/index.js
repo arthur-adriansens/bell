@@ -6,9 +6,9 @@ const { playSound, changeVolume } = require("./soundHelper.js");
 const cron = require("node-cron");
 const hubspot = require("@hubspot/api-client");
 const hubspotClient = new hubspot.Client({ accessToken: process.env.access_token });
-let last_time_checked;
+let last_time_checked = new Date().toISOString();
 
-async function getRecent() {
+async function getRecent(custom_date) {
     const searchCriteria = {
         filterGroups: [
             {
@@ -16,7 +16,7 @@ async function getRecent() {
                     {
                         propertyName: "hs_lastmodifieddate",
                         operator: "GTE",
-                        value: last_time_checked || new Date().toISOString(),
+                        value: custom_date || last_time_checked,
                     },
                 ],
             },
@@ -42,18 +42,18 @@ async function getRecent() {
 }
 
 async function main() {
-    // most_recent_id = await getRecent(1);
-    // console.log(most_recent_id.results[0].id);
-
     const response = await getRecent();
-    if (response.total > 0 && response[0]?.id) {
-        const check = await check_deal(response[0]?.id);
-        if (check) {
-            playSound();
+
+    if (response.total > 0) {
+        for (let i in response?.results) {
+            console.log(response.results[i].id);
+            const check = await check_deal(response.results[i].id);
+            if (check) playSound();
         }
     }
+
     last_time_checked = new Date().toISOString();
-    console.log(response.total, response.results);
+    // console.log(response.total, response.results?.length, response.results);
 }
 
 async function check_deal(id) {
@@ -64,7 +64,8 @@ async function check_deal(id) {
         })
         .then(async (res) => {
             const result = await res.json();
-            return result.properties.dealstage == "closedwon";
+            // console.log(result.properties?.dealstage);
+            return result.properties?.dealstage == "closedwon";
         });
 }
 

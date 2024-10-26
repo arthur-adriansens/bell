@@ -9,18 +9,18 @@ function changeVolume(percentage) {
     loudness.setVolume(Number(percentage));
 }
 
-function playSound(soundPath = "new_client.mp3") {
-    const sounds = fs.readdirSync("sounds");
+function playSound(soundName = "new_client") {
+    const sounds = fs.readdirSync("public/sounds");
     if (!sounds.length || sounds.length == 0) return;
-    console.log(`sounds/${soundPath}`);
+    // console.log(`public/sounds/${soundName}.mp3`);
 
-    exec(`vlc sounds/${soundPath} vlc://quit`, (error, stdout, stderr) => {
+    exec(`vlc public/sounds/${soundName}.mp3 vlc://quit`, (error, stdout, stderr) => {
         if (error) {
             console.log(`error: ${error.message}`);
             return;
         }
         if (stderr) {
-            console.log(`played sounds/${soundPath}`);
+            console.log(`played public/sounds/${soundName}.mp3`);
             return;
         }
         console.log(`stdout: ${stdout}`);
