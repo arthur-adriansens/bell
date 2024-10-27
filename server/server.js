@@ -47,11 +47,13 @@ app.use("/public", express.static(path.join(__dirname, "../public")));
 app.get("/", async (req, res) => {
     const temp = await execPromise("vcgencmd measure_temp").catch(() => "Temperature not available");
     const volume = await requestVolume().catch(() => 50);
+    const up = await execPromise("uptime -p").catch(() => "Uptime not available");
 
     const helpers = {
         temperature: temp.replace("temp=", "").replace("'", "°"),
         volumeLevel: volume,
         volumeLevelRight: 100 - volume,
+        uptime: up.charAt(0).toUpperCase() + up.slice(1),
     };
     res.render("index", helpers);
 });
