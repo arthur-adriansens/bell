@@ -8,7 +8,7 @@ const hubspot = require("@hubspot/api-client");
 const hubspotClient = new hubspot.Client({ accessToken: process.env.access_token });
 let last_time_checked = new Date().toISOString();
 
-async function getRecent(custom_date) {
+async function getRecent() {
     const searchCriteria = {
         filterGroups: [
             {
@@ -16,7 +16,7 @@ async function getRecent(custom_date) {
                     {
                         propertyName: "hs_lastmodifieddate",
                         operator: "GTE",
-                        value: custom_date || last_time_checked,
+                        value: last_time_checked,
                     },
                 ],
             },
@@ -42,18 +42,22 @@ async function getRecent(custom_date) {
 }
 
 async function main() {
+    // last_time_checked = "2024-08-10T16:42:59.535Z"; // custom test date (max 10 though...)
     const response = await getRecent();
 
     if (response.total > 0) {
         for (let i in response?.results) {
             console.log(response.results[i].id);
             const check = await check_deal(response.results[i].id);
-            if (check) playSound();
+            if (check) {
+                playSound();
+                break;
+            }
         }
     }
 
     last_time_checked = new Date().toISOString();
-    // console.log(response.total, response.results?.length, response.results);
+    console.log(response.total, response.results?.length, response.results);
 }
 
 async function check_deal(id) {
@@ -64,8 +68,12 @@ async function check_deal(id) {
         })
         .then(async (res) => {
             const result = await res.json();
-            // console.log(result.properties?.dealstage);
-            return result.properties?.dealstage == "closedwon";
+
+            const closed_date = new Date(result.properties?.closedate).valueOf();
+            const last_time_checked_date = new Date(last_time_checked).valueOf();
+            // console.log(closed_date, last_time_checked_date, closed_date > last_time_checked_date);
+
+            return result.properties?.dealstage == "closedwon" && closed_date >= last_time_checked_date;
         });
 }
 

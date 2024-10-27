@@ -21,8 +21,30 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+// Setup handlebars
+const { engine } = require("express-handlebars");
+app.engine("handlebars", engine({ defaultLayout: false }));
+app.set("view engine", "handlebars");
+app.set("views", __dirname);
+
 // Routes
-app.use("/", express.static(path.join(__dirname, "../public")));
+//! TODO
+app.use("/public", express.static(path.join(__dirname, "../public")));
+
+app.get("/", async (req, res) => {
+    const temp = await exec("vcgencmd measure_temp", (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return "Temperature not available";
+        }
+        return stdout.replace("temp=", "").replace("'", "°");
+    });
+    console.log(temp);
+    const helpers = {
+        temperature: temp,
+    };
+    res.render("index", helpers);
+});
 
 app.post("/upload", upload.single("file"), (req, res) => {
     if (!req.body) {
@@ -48,17 +70,6 @@ app.get("/update", (req, res) => {
     });
 
     return res.status(200).send("Updating!");
-});
-
-app.get("/temp", async (req, res) => {
-    const temp = await exec("vcgencmd measure_temp", (error, stdout, stderr) => {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return res.status(400).send(error);
-        }
-        console.log(`stdout: ${stdout}`);
-        return res.status(200).send(stdout);
-    });
 });
 
 app.get("/volume", async (req, res) => {
