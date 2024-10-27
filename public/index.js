@@ -11,6 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Request complete! response:", res);
         });
     });
+
     function startDragging(e) {
         e.preventDefault();
         document.addEventListener("mousemove", drag);
@@ -38,6 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 document.querySelector("#update").addEventListener("click", update);
 function update() {
+    document.querySelector("#update").removeEventListener("click", update);
     fetch("/update", { method: "GET" })
         .then((res) => {
             document.querySelector("#update").innerHTML = "Updating...";
@@ -46,11 +48,21 @@ function update() {
         .catch((err) => {
             console.log(err);
             document.querySelector("#update").innerHTML = "Failed to update :(";
-        })
-        .finally(() => {
-            document.querySelector("#update").removeEventListener("click", update);
         });
 }
+
+document.querySelector("#shutdown").addEventListener("click", shutdown);
+function shutdown() {
+    document.querySelector("#shutdown").removeEventListener("click", shutdown);
+    fetch("/shutdown", { method: "GET" })
+        .then((res) => {
+            console.log(res);
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+}
+
 document.querySelector("#upload").addEventListener("click", uploadFile);
 function uploadFile() {
     const fileInput = document.querySelector("#file_input");

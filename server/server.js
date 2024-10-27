@@ -84,6 +84,20 @@ app.get("/update", (req, res) => {
     return res.status(200).send("Updating!");
 });
 
+app.get("/shutdown", (req, res) => {
+    console.log("shutting down...");
+
+    exec("sudo shutdown now", (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return res.status(400).send(error);
+        }
+        console.log(`stdout: ${stdout}`);
+    });
+
+    return res.status(200).send("Shutting down!");
+});
+
 app.get("/volume", async (req, res) => {
     changeVolume(req.query.volume);
     console.log("volume:", req.query.volume);
