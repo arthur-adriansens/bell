@@ -2,7 +2,7 @@
 
 // Setup express
 require("dotenv").config({ path: ".env" });
-const { playSound, changeVolume } = require("./soundHelper.js");
+const { playSound, changeVolume, requestVolume } = require("./soundHelper.js");
 const { exec } = require("child_process");
 const port = process.env.PORT || 3000;
 const path = require("path");
@@ -45,18 +45,15 @@ function execPromise(command) {
 app.use("/public", express.static(path.join(__dirname, "../public")));
 
 app.get("/", async (req, res) => {
-    try {
-        const tempOutput = await execPromise("vcgencmd measure_temp");
-        const temp = tempOutput.replace("temp=", "").replace("'", "°");
+    const temp = await execPromise("vcgencmd measure_temp").catch(() => "Temperature not available");
+    const volume = await requestVolume().catch(() => 50);
 
-        const helpers = {
-            temperature: temp,
-        };
-        res.render("index", helpers);
-    } catch (error) {
-        console.error(error);
-        res.render("index", { temperature: "Temperature not available" });
-    }
+    const helpers = {
+        temperature: temp.replace("temp=", "").replace("'", "°"),
+        volumeLevel: volume,
+        volumeLevelRight: 100 - volume,
+    };
+    res.render("index", helpers);
 });
 
 app.post("/upload", upload.single("file"), (req, res) => {

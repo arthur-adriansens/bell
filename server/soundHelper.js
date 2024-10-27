@@ -9,6 +9,10 @@ function changeVolume(percentage) {
     loudness.setVolume(Number(percentage));
 }
 
+async function requestVolume() {
+    return await loudness.getVolume();
+}
+
 function playSound(soundName = "new_client") {
     const sounds = fs.readdirSync("public/sounds");
     if (!sounds.length || sounds.length == 0) return;
@@ -27,4 +31,4 @@ function playSound(soundName = "new_client") {
     });
 }
 
-module.exports = { playSound, changeVolume };
+module.exports = { playSound, changeVolume, requestVolume };
