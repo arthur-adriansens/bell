@@ -27,23 +27,36 @@ app.engine("handlebars", engine({ defaultLayout: false }));
 app.set("view engine", "handlebars");
 app.set("views", __dirname);
 
+// Helper function to promisify exec
+function execPromise(command) {
+    return new Promise((resolve, reject) => {
+        exec(command, (error, stdout, stderr) => {
+            if (error) {
+                reject(`exec error: ${error}`);
+                return;
+            }
+            resolve(stdout);
+        });
+    });
+}
+
 // Routes
 //! TODO
 app.use("/public", express.static(path.join(__dirname, "../public")));
 
 app.get("/", async (req, res) => {
-    const temp = await exec("vcgencmd measure_temp", (error, stdout, stderr) => {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return "Temperature not available";
-        }
-        return stdout.replace("temp=", "").replace("'", "°");
-    });
-    console.log(temp);
-    const helpers = {
-        temperature: temp,
-    };
-    res.render("index", helpers);
+    try {
+        const tempOutput = await execPromise("vcgencmd measure_temp");
+        const temp = tempOutput.replace("temp=", "").replace("'", "°");
+
+        const helpers = {
+            temperature: temp,
+        };
+        res.render("index", helpers);
+    } catch (error) {
+        console.error(error);
+        res.render("index", { temperature: "Temperature not available" });
+    }
 });
 
 app.post("/upload", upload.single("file"), (req, res) => {
