@@ -52,7 +52,7 @@ app.get("/", async (req, res) => {
 
     const helpers = {
         temperature: temp,
-        tempColor: temp < 60 ? "green" : temp < 75 ? "orange" : "red",
+        tempColor: temp <= 60 ? "green" : temp <= 75 ? "orange" : "red",
         volumeLevel: volume,
         volumeLevelRight: 100 - volume,
         uptime: up.charAt(0).toUpperCase() + up.slice(1),

@@ -4,7 +4,7 @@
 
 ## discription
 
-A bell that rings when a new client is created, powered by Microsoft Forms and a Raspberry pi. Checks for mails every 3-5 minutes.
+A bell that rings when a new client is created, powered by the Hupspot API and a Raspberry pi 4 or zero 2W. Checks for deals every minute. Access the dashboard at raspberrypi.local:3000, here you can change the volume, upload new songs and more.
 
 ## install
 
@@ -35,19 +35,16 @@ to download a song from YouTube, run the server/youtube.js file (change the url 
 
 ## update (!= install)
 
-if local changes: `git stash && git stash drop`
-update: `git pull --rebase origin main && npm install`
+You can update new changes by clicking the update button on the dashboard (raspberrypi.local:3000), or you can do it manually:
+
+Run if local changes: `git stash && git stash drop`
+Update: `git pull --rebase origin main && npm install`
 
 ## explanation
-The body of the mail can **never be empty**! The email will be skipped if the body is empty (I don't know why). The email address is "arthur.test2@outlook.com" **for Belgium** and "arthur.test3@outlook.com" **for the Netherlands**.
 
-| email subject                    | explantation                                                                                 | example                  |
-|----------------------------------|----------------------------------------------------------------------------------------------|--------------------------|
-| bell random                      | Plays one of the sounds randomly.                                                            | /                        |
-| bell "type"                      | Plays the "type" sound. The 3 types are: "new_client", "actived_client" and "churned_client". | bell new_client          |
-| change volume "new volume level" | Changes the volume to "new volume level"%. Max value is 100.                                 | change volume 20         |
-| update                           | Updates the Raspberry Pi with new changes in this GitHub repo.                               | /                        |
-| add "type"                 | Adds a new sound. Place the **mp3** in the attachment of the mail. The 3 types are: "new_client", "actived_client" and "churned_client".                                | add actived_client |
+Make sure the .env file has a access_token and a PORT.
+
+Everything can be done through the awesome dashboard at raspberrypi.local:3000!
 
 If the sound is not load enough, please visit:
 https://www.mp3louder.com/
