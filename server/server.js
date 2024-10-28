@@ -45,12 +45,14 @@ function execPromise(command) {
 app.use("/public", express.static(path.join(__dirname, "../public")));
 
 app.get("/", async (req, res) => {
-    const temp = await execPromise("vcgencmd measure_temp").catch(() => "Temperature not available");
+    const temp_output = await execPromise("vcgencmd measure_temp").catch(() => "Temperature not available");
+    const temp = temp_output.replace("temp=", "").replace("'", "°");
     const volume = await requestVolume().catch(() => 50);
     const up = await execPromise("uptime -p").catch(() => "Uptime not available");
 
     const helpers = {
-        temperature: temp.replace("temp=", "").replace("'", "°"),
+        temperature: temp,
+        tempColor: temp < 60 ? "green" : temp < 75 ? "orange" : "red",
         volumeLevel: volume,
         volumeLevelRight: 100 - volume,
         uptime: up.charAt(0).toUpperCase() + up.slice(1),
