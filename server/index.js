@@ -50,6 +50,7 @@ async function main() {
             console.log(response.results[i].id);
             const check = await check_deal(response.results[i].id);
             if (check) {
+                console.log("Deal successfully checked!");
                 playSound();
                 break;
             }
@@ -57,7 +58,8 @@ async function main() {
     }
 
     last_time_checked = new Date().toISOString();
-    console.log(response.total, response.results?.length, response.results);
+    console.log(response.total, response.results?.length);
+    // console.log(response.results)
 }
 
 async function check_deal(id) {
