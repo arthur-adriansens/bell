@@ -80,10 +80,10 @@ app.get("/update", (req, res) => {
             console.error(`exec error: ${error}`);
             return res.status(400).send(error);
         }
-
         console.log(`stdout: ${stdout}`);
-        return res.status(200).send("Updating!");
     });
+
+    return res.status(200).send("Updating!");
 });
 
 app.get("/shutdown", (req, res) => {
@@ -94,10 +94,10 @@ app.get("/shutdown", (req, res) => {
             console.error(`exec error: ${error}`);
             return res.status(400).send(error);
         }
-
         console.log(`stdout: ${stdout}`);
-        return res.status(200).send("Shutting down!");
     });
+
+    return res.status(200).send("Shutting down!");
 });
 
 app.get("/volume", async (req, res) => {
