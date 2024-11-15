@@ -48,3 +48,11 @@ Everything can be done through the awesome dashboard at raspberrypi.local:3000!
 
 If the sound is not load enough, please visit:
 https://www.mp3louder.com/
+
+## turn off the lights
+
+To turn off the red and green right of the Raspberry Pi, you can run these commands:
+open `sudo nano /boot/firmware/config.txt`
+and add `dtparam=pwr_led_activelow=off`, `dtparam=act_led_trigger=none` and `dtparam=act_led_activelow=off` to the end of the file. `sudo reboot now` to apply the changes.
+
+Or just run: `echo -e "\ndtparam=pwr_led_activelow=off\ndtparam=act_led_trigger=none\ndtparam=act_led_activelow=off" | sudo tee -a /boot/firmware/config.txt && sudo reboot now`
